@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap"
+        rel="stylesheet">
+    <style>
+        ::-webkit-scrollbar {
+            display: none;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Space Mono', monospace;
+            font-size: clamp(16px, 8vw, 32px);
+            overflow: hidden;
+        }
+
+        h1 {
+            font-family: 'Libre Baskerville', serif;
+            font-size: clamp(16px, 18vw, 70px);
+            text-align: center;
+            font-weight: normal;
+        }
+
+        h2 {
+            font-family: 'Libre Baskerville', serif;
+            text-align: center;
+            max-width: 60%;
+        }
+
+        h2 span {
+            position: relative;
+            /*border-bottom: 5px solid rgba(0, 0, 0, 1); **/
+            margin: 0.25rem 0.5rem;
+            display: inline-block;
+        
+        }
+
+        h2 span:after{
+            content:"";
+            display:block;
+            height:5px;
+            width:100%;
+            bottom:0;
+            background:black;
+            border-radius:30px;
+        }
+
+        h2 span:nth-child(even):after{
+            transform: rotate(0.75deg) skew(50deg);
+        }
+        h2 span:after{
+            transform: rotate(-1deg)  skew(50deg);
+        }
+
+        .quiz-container {
+            scroll-snap-type: y mandatory;
+            height: 100vh;
+            overflow-y: scroll;
+            scroll-behavior: smooth;
+        }
+
+        section {
+            scroll-snap-align: start;
+            height: 100vh;
+            display: flex;
+            padding: 0 1em;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        details {
+            outline: none;
+        }
+
+        summary {
+            outline: none;
+            outline: none;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            text-align: center;
+            font-family: 'Libre Baskerville', serif;
+            font-weight: 400;
+            font-style: italic;
+        }
+
+        summary::-webkit-details-marker {
+            display: none;
+        }
+
+        label {
+            font-family: 'Libre Baskerville', serif;
+            font-size: clamp(16px, 18vw, 70px);
+            opacity: 0.9;
+            font-style: italic;
+        }
+
+        .alphabetical {
+            list-style-type: upper-alpha;
+        }
+
+        .col-2 {
+            column-count: 2;
+        }
+
+        .round-title {
+            position: sticky;
+            top: 0;
+            font-size: 0.75em;
+            padding: 1rem;
+            background: white;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .rounds{
+            position: fixed;
+            top:0;
+            z-index: 999;
+            margin:0 auto;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            padding:1rem;
+            background:white;
+        }
+
+        .rounds span,
+        .rounds a{
+            display: block;
+            padding:0.25rem 1rem;
+            font-size:0.75em;
+            text-decoration: none;
+            color:black;
+        }
+
+        span.round-label{
+            font-size:0.75em;
+            text-transform: uppercase;
+            color:grey;
+        }
+
+        nav {
+            padding-right: 0.25rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: black;
+            display: inline-block;
+            padding: 0.25rem;
+        }
+
+        img {
+            width: 150px;
+            margin-top: 2rem;
+        }
+
+        img.wide{
+            width:200px
+        }
+
+        .photo{
+            width:100%;
+            max-width:1000px;
+            margin-bottom:2rem;
+        }
+
+        #round1{
+            background: #12a575;
+            color: white;
+        }
+
+        #round2{
+            background: #9412a5;
+            color: white;
+        }
+
+        #round3{
+            background: #774a0f;
+            color: white;
+        }
+
+        #intro{
+            color:white;
+            background:url("/bgs/folk-pattern-black.png")
+        }
+        #end{
+            position: relative;
+        }
+
+        #end video {
+        object-fit: cover;
+        width: 100vw;
+        height: 100vh;
+        position: absolute;
+        top: 0;
+        z-index: -2;
+        }
+        
+    </style>
+</head>
+
+<body>
+
+    <div class="quiz-container">
+        <section id="intro">
+
+            <h1>
+                <b>Quiz:</b> <i>That Thursday Feeling</i>
+            </h1>
+   
+        </section>
+        <div class="rounds"><span class="round-label">Round</span><a href="#round1">1</a> <a href="#round2">2</a> <a href="#round3">3</a></div>
+        <div class="round-title"><span><b>Round 1:</b> <i>Not Geography</i> </span>
+            <nav>
+                <a href="#q1">1</a>
+                <a href="#q2">2</a>
+                <a href="#q3">3</a>
+                <a href="#q4">4</a>
+                <a href="#q5">5</a>
+                <a href="#q6">6</a>
+                <a href="#q7">7</a>
+                <a href="#q8">8</a>
+                <a href="#q9">9</a>
+                <a href="#q10">10</a>
+            </nav>
+        </div>
+        <section id="round1">
+
+            <h1>
+                <b>Round 1:</b> <i>Not Geography</i>
+            </h1>
+
+        </section>
+
+        <section id="q1">
+
+            <label>1</label>
+            <img src="icons/dwarf.svg" />
+            <h2>Name the <span>7 dwarfs</span> in the <span>1937 Snow White</span> movie</h2>
+            <details>
+                <summary>Answer</summary>
+                Dopey, Doc, Bashful, Happy, Grumpy, Sleepy, Sneezy
+            </details>
+        </section>
+        <section id="q2">
+            <label>2</label>
+            <img src="icons/hand.svg" />
+            <h2>Which movie did <span>Mickey Mouse</span> and <span>Buggs Bunny</span> both appear in?</h2>
+            <details>
+                <summary>Answer</summary>
+                Who Framed Roger Rabbit
+            </details>
+        </section>
+        <section id="q3">
+            <label>3</label>
+            <img src="icons/poke.svg" />
+            <h2>How many <span>Pokémon</span> featured in the original <span>1996 red and green</span> Gameboy release?
+            </h2>
+            <details>
+                <summary>Answer</summary>
+                151 - including mew.
+            </details>
+        </section>
+        <section id="q4">
+            <label>4</label>
+            <img src="icons/fett.svg" />
+            <h2>Rank these media franchises by <span>highest lifetime grossing</span></h2>
+            <ol class="alphabetical col-2">
+                <li>Pokémon</li>
+                <li>Hello Kitty</li>
+                <li>Winnie the Pooh</li>
+                <li>Mickey Mouse & Friends</li>
+                <li>Star Wars</li>
+                <li>Shōnen Jump</li>
+            </ol>
+            <details>
+                <summary>Answer</summary>
+                <ol class="alphabetical col-2">
+                    <li>Pokémon</li>
+                    <li>Hello Kitty</li>
+                    <li>Winnie the Pooh</li>
+                    <li>Mickey Mouse & Friends</li>
+                    <li>Star Wars</li>
+                    <li>Shōnen Jump</li>
+                </ol>
+            </details>
+        </section>
+        <section id="q5">
+            <label>5</label>
+            <img src="icons/sprint.svg" />
+            <h2>Who is the men's <span>100m world record</span> holder?</h2>
+            <ol class="alphabetical">
+                <li>Athletes Name</li>
+                <li>Time to the nearest tenth</li>
+                <li>Year the record was set</li>
+            </ol>
+            <details>
+                <summary>Answer</summary>
+                <ol class="alphabetical">
+                    <li>Usain Bolt</li>
+                    <li>Time 9.58 seconds</li>
+                    <li>Year 2009</li>
+                </ol>
+            </details>
+        </section>
+        <section id="q6">
+            <label>6</label>
+            <img class="wide" src="icons/cassette.svg" />
+            <h2>Biggest selling UK <span>non number one</span> </h2>
+            <details>
+                <summary>Answer</summary>
+                Last Christmas / Everything She Wants
+        </section>
+        <section id="q7">
+            <label>7</label>
+            <img src="icons/romance.svg" />
+            <h2>Who is <span>Karla Camila Cabello Estrabao</span> dating?</h2>
+            <details>
+                <summary>Answer</summary>
+                Shawn Peter Raul Mendes but i will accept Shawn Mendes
+            </details>
+        </section>
+        <section id="q8">
+            <label>8</label>
+            <img class="wide" src="icons/cow.svg" />
+            <h2>What is the difference between a <span>Cow</span> and a <span>Heifer</span></h2>
+            <details>
+                <summary>Answer</summary>
+                <li>Heifer have not given birth</li>
+                <li><b>BONUS:</b> under the age of 2 else they are a heiferette.</li>
+            </details>
+        </section>
+        <section id="q9">
+            <label>9</label>
+            <img src="icons/idiot.svg" />
+            <h2>Using the <span>Binet-Simon</span> concept of mental age rate the following by <span>lowest to
+                    highest</span></h2>
+            <ol class="alphabetical">
+                <li>Imbeciles</li>
+                <li>Idiots</li>
+                <li>Morons</li>
+            </ol>
+            <details>
+                <summary>Answer</summary>
+                <ol class="alphabetical">
+                    <li>Idiots</li>
+                    <li>Imbeciles</li>
+                    <li>Morons</li>
+                </ol>
+            </details>
+        </section>
+        <section id="q10">
+            <label>10</label>
+            <img class="wide" src="icons/van.svg" />
+            <h2>What is the 2020 <span>Van of the Year</span></h2>
+            <details>
+                <summary>Answer</summary>
+                Ford Transit Custom Hybrid
+            </details>
+        </section>
+        <div class="round-title"><span><b>Round 2:</b> <i>Inyourendo</i></span>
+            <nav>
+                <a href="#q11">1</a>
+                <a href="#q12">2</a>
+                <a href="#q13">3</a>
+                <a href="#q14">4</a>
+                <a href="#q15">5</a>
+                <a href="#q16">6</a>
+                <a href="#q17">7</a>
+                <a href="#q18">8</a>
+                <a href="#q19">9</a>
+                <a href="#q20">10</a>
+            </nav>
+        </div>
+        <section id="round2">
+            <h1>
+                <b>Round 2:</b> <i>Inyourendo</i>
+            </h1>
+        </section>
+        <section id="q11">
+            <label>1</label>
+            <h2>AHOLEHOLE</h2>
+            <img src="icons/hole.svg" />
+            <ol class="alphabetical">
+                <li>A dance originating from Fiji</li>
+                <li>Hole in the mens cubicle</li>
+                <li>Hawaiian Fish</li>
+                <li>New Guinea Marsupial</li>
+            </ol>
+            <details>
+                <summary>Answer</summary>
+                <ol class="alphabetical">
+                    <li>Hawaiian Fish</li>
+                </ol>
+            </details>
+        </section>
+        <section id="q12">
+            <label>2</label>
+            <img src="icons/paper.svg" />
+            <h2>AKTASHITE</h2>
+            <ol class="alphabetical">
+                <li>Small Town in Kenya</li>
+                <li>Japanese Stationary Company</li>
+                <li>Rare Mineral</li>
+                <li>Taiwanese Baseball Team</li>
+            </ol>
+            <details>
+                <summary>Answer</summary>
+                    <li>Rare Mineral</li>
+            </details>
+        </section>
+        <section id="q13">
+            <label>3</label>
+            <img src="icons/fiddle.svg" />
+            <h2>BUMFIDDLER</h2>
+            <ol class="alphabetical">
+                <li>Deep Water Crab</li>
+                <li>Invalidator of Documents</li>
+                <li>Not very good busker</li>
+                <li>Part time proctologist</li>
+            </ol>
+            <details>
+                <summary>Answer</summary>
+                    <li>Invalidator of Documents</li>
+            </details>
+        </section>
+        <section id="q14">
+            <label>4</label>
+            <img src="icons/gossip.svg" />
+            <h2>CLATTERFART</h2>
+            <ol class="alphabetical">
+                <li>Brand of Dutch Aftershave</li>
+                <li>German Trumpet</li> 
+                <li>Humpback Whale in Hungarian</li>
+                <li>Gossiper</li>
+            </ol>
+            <details>
+                <summary>Answer</summary>
+                    <li>Gossiper</li>
+            </details>
+        </section>
+        <section id="q15">
+            <label>5</label>
+            <img src="icons/cock.svg" />
+            <h2>COCKCHAFER</h2>
+            <ol class="alphabetical">
+                <li>Chinese Alligator</li>
+                <li>Large Beetle</li>
+                <li>Small Chicken</li> 
+                <li>German Flying Bomb</li>
+            </ol>
+            <details>
+                <summary>Answer</summary>
+                <li>Large Beetle</li>
+            </details>
+        </section>
+        <section id="q16">
+            <label>6</label>
+            <img src="icons/pop-rock.svg" />
+            <h2>DIK-DIK</h2>
+            <ol class="alphabetical">
+                <li>Type of Canoe</li>
+                <li>Flying Fish</li> 
+                <li>1960s Italian beat-pop-rock band</li>
+                <li>Antelope</li>
+            </ol>
+            <details>
+                <summary>Answer</summary>
+                <li>Antelope</li>
+                <li>Bonus point for 1960s Italian beat-pop-rock band</li>
+            </details>
+        </section>
+        <section id="q17">
+            <label>7</label>
+            <img src="icons/jelly.svg" />
+            <h2>FUKSHEET</h2>
+            <ol class="alphabetical">
+                <li>Israeli Bed Sheet</li>
+                <li>Asian jellyfish</li> 
+                <li>Sail on a mast</li>
+                <li>Type of cardboard</li>
+            </ol>
+            <details>
+                <summary>Answer</summary>
+                <li>Sail on a mast</li>
+            </details>
+        </section>
+        <section id="q18">
+            <label>8</label>
+            <img src="icons/scissors.svg" />
+            <h2>FANNY-BLOWER</h2>
+            <ol class="alphabetical">
+                <li>Bulgarian Windmill</li>
+                <li>Fan used in the scissor-grinding industry</li>
+                <li>A type of under garment</li> 
+                <li>Person who whispers</li>
+            </ol>
+            <details>
+                <summary>Answer</summary>
+                <li>Fan used in the scissor-grinding industry</li>
+                <p>According to one 19th century glossary of industrial slang, a fanny-blower or fanner was "used in the scissor-grinding industry," and comprised "a wheel with vanes, fixed onto a rotating shaft, enclosed in a case or chamber to create a blast of air." In other words, it’s a fan.</p>
+            </details>
+        </section>
+        <section id="q19">
+            <label>9</label>
+            <img src="icons/toilet.svg" />
+            <h2>SHITTAH</h2>
+            <ol class="alphabetical">
+                <li>A type of Rat</li>
+                <li>Arabian tree</li>
+                <li>Small Jamaican office</li> 
+                <li>Mild Pakinstani curry</li>
+            </ol>
+            <details>
+                <summary>Answer</summary>
+                <li>Arabian tree</li>
+            </details>
+        </section>
+        <section id="q20">
+            <label>10</label>
+            <img src="icons/pakka.svg" />
+            <h2>PAKAPOO</h2>
+            <ol class="alphabetical">
+                <li>Korean shrimp</li>
+                <li>Type of dog</li> 
+                <li>Australian Lottery</li>
+                <li>A device used by Arab Nabatean traders to move concrete</li>
+            </ol>
+            <details>
+                <summary>Answer</summary>
+                <li>Australian Lottery</li>
+            </details>
+        </section>
+        <div class="round-title"><span><b>Round 3:</b> <i>Pictures</i></span>
+            <nav>
+                <a href="#q21">1</a>
+                <a href="#q22">2</a>
+                <a href="#q23">3</a>
+                <a href="#q24">4</a>
+                <a href="#q25">5</a>
+                <a href="#q26">6</a>
+                <a href="#q27">7</a>
+                <a href="#q28">8</a>
+                <a href="#q29">9</a>
+                <a href="#q30">10</a>
+            </nav>
+        </div>
+        <section id="round3">
+            <h1>
+                <b>Round 3:</b> <i>Pictures</i>
+            </h1>
+        </section>
+        <section id="q21">
+            <label>1</label>
+            <img class="photo"  src="/picture/1.png" alt="">
+            <details>
+                <summary>Answer</summary>
+                <ol class="alphabetical">
+                    <li>Armageddon</li>
+                    <li>Steve Buscemi</li>
+                </ol>
+
+            </details>
+        </section>
+        <section id="q22">
+            <label>2</label>
+            <img class="photo"  src="/picture/2.png" alt="">
+            <details>
+                <summary>Answer</summary>
+                <ol class="alphabetical">
+                    <li>12 Monkeys</li>
+                    <li>Brad Pitt</li>
+                </ol>
+            </details>
+        </section>
+        <section id="q23">
+            <label>3</label>
+            <img class="photo"  src="/picture/3.png" alt="">
+            <details>
+                <summary>Answer</summary>
+                <ol class="alphabetical">
+                    <li>Tropic Thunder</li>
+                    <li>Tom Cruise</li>
+                </ol>
+            </details>
+        </section>
+        <section id="q24">
+            <label>4</label>
+            <img class="photo" src="/picture/4.png" alt="">
+            <details>
+                <summary>Answer</summary>
+                <ol class="alphabetical">
+                    <li>Avatar</li>
+                    <li>Zoe Saldana</li>
+                </ol>
+            </details>
+        </section>
+        <section id="q25">
+            <label>5</label>
+            <img class="photo" src="/picture/5.png" alt="">
+            <details>
+                <summary>Answer</summary>
+                <ol class="alphabetical">
+                <li>Cleopatra</li>
+                <li>Elizabeth Taylor </li>
+                </ol>
+            </details>
+        </section>
+        <section id="q26">
+            <label>6</label>
+            <img class="photo" src="/picture/6.png" alt="">
+            <details>
+                <summary>Answer</summary>
+                <ol class="alphabetical">
+                    <li>The Sound of Music</li>
+                    <li>Julie Andrews </li>
+                </ol>
+
+            </details>
+        </section>
+        <section id="q27">
+            <label>7</label>
+            <img class="photo" src="/picture/7.png" alt="">
+            <details>
+                <summary>Answer</summary>
+                <ol class="alphabetical">
+                    <li>Drive</li>
+                    <li>Christina Hendricks</li>
+                </ol>
+            </details>
+        </section>
+        <section id="q28">
+            <label>8</label>
+            <img class="photo" src="/picture/8.png" alt="">
+            <details>
+                <summary>Answer</summary>
+                <ol class="alphabetical">
+                    <li>One Flew Over the Cuckoo's Nest</li>
+                    <li>Danny Devito</li>
+                </ol>
+            </details>
+        </section>
+        <section id="q29">
+            <label>9</label>
+            <img class="photo" src="/picture/9.png" alt="">
+            <details>
+                <summary>Answer</summary>
+                <ol class="alphabetical">
+                    <li>True Grit</li>
+                    <li>Matt Damon </li>
+                </ol>
+                
+            </details>
+        </section>
+        <section id="q30">
+            <label>10</label>
+            <img class="photo"  src="/picture/10.png" alt="">
+            <details>
+                <summary>Answer</summary>
+                <ol class="alphabetical">
+                    <li>Fight Club</li>
+                    <li>Jared Leto</li>
+                </ol>
+            </details>
+        </section>
+        <section id="end">
+            <video id="fin" src="/bgs/confetti.mp4"  loop="" muted="" playsinline="" onerror="this.onerror=()=>{};this.src='https://i.giphy.com/5T06ftQWtCMy0XFaaI.mp4';">
+                <img src="https://i.giphy.com/5T06ftQWtCMy0XFaaI.gif " alt="">
+            </video>
+            <h1><i>Fin</i></h1>
+        </section>
+    </div>
+</body>
+    <script>
+        const options = {root:null, rootMargin:'0px', threshold:1.0};
+        const callback = (entries, observer) =>{
+            entries.forEach(entry => {
+                if(entry.target.id === 'fin'){
+                    if(entry.isIntersecting){
+                        entry.target.play();
+                    }
+                    else{
+                        entry.target.pause();
+                    }
+                }
+            });
+        }
+        const observer = new IntersectionObserver(callback, options) 
+        observer.observe(document.querySelector("#fin"))
+    </script>
+</html>
